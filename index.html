@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Fulfilment Availability (OFA) Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Branding: Kramp Redesign -->
+    <!-- NEITHER Mermaid JS NOR SVG were used in this output. -->
+    <style>
+        body {
+            font-family: 'Barlow Condensed', sans-serif;
+            background-color: #f0f4f8;
+            font-weight: 400; /* Regular */
+        }
+        h1, h2, h3, h4, strong {
+            font-weight: 700; /* Bold */
+        }
+        .doughnut-chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+        }
+        @media (min-width: 768px) {
+            .doughnut-chart-container {
+                height: 350px;
+            }
+        }
+        .material-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%; /* Make cards in a grid have same height */
+        }
+        .material-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        
+        /* New Decision Flow Card Styles */
+        .df-card-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: auto;
+        }
+        .df-card {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            border: 2px solid black;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .df-question {
+            background-color: #e5e7eb;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.125rem;
+            border-right: 2px solid black;
+        }
+        .df-answers {
+            display: flex;
+            flex-direction: column;
+        }
+        .df-answer {
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .df-answer:first-child {
+            border-bottom: 2px solid black;
+        }
+        .df-label {
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+        .df-outcome {
+             font-weight: 400;
+        }
+        .df-link {
+            font-style: italic;
+            color: #194461;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="text-black">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12 p-8 md:p-12 rounded-lg" style="background-color: #9B1915;">
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight uppercase">Order Fulfilment Availability (OFA)</h1>
+            <p class="text-lg text-gray-200 mt-2 max-w-3xl mx-auto font-normal">A strategic look into our supply chain's health: Did we have the right stock, in the right place, at the right time?</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <section class="material-card md:col-span-2 lg:col-span-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-center md:text-left">
+                        <h2 class="text-3xl font-bold text-black mb-4 uppercase">Performance Snapshot</h2>
+                        <p class="text-gray-700 mb-4 font-normal">The OFA score reveals our capability to meet customer demand based on our inventory position. It measures the percentage of order lines that could be fully satisfied, whether they were shipped perfectly or the stock was available but delayed by internal processes.</p>
+                        <div class="bg-[#9B1915] border-l-4 border-black p-4 rounded-r-lg text-white">
+                            <p class="font-bold">This high-level view helps us immediately gauge the overall effectiveness of our inventory and fulfillment strategy.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-black uppercase">The Goal of OFA</h3>
+                        <p class="mt-2 text-gray-800 font-normal">
+                            The goal is to provide a strategic view of our supply chain's health. It moves beyond simple on-time shipping metrics to answer a more fundamental question: <strong class="text-black">did we have the right stock, in the right place, at the right time?</strong>
+                        </p>
+                        <p class="mt-4 text-gray-800 font-normal">
+                            By measuring our capability to fulfill orders based on inventory position, OFA provides deep, actionable insights. This helps distinguish between true stock shortages and internal process delays, allowing for targeted improvements that enhance efficiency and boost customer satisfaction.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+             <section class="material-card md:col-span-2 lg:col-span-3">
+                <h2 class="text-3xl font-bold text-black mb-4 text-center uppercase">The Anatomy of an Order: Fulfillment Scenarios</h2>
+                 <p class="text-center text-gray-700 mb-8 max-w-4xl mx-auto font-normal">To accurately measure performance, we classify every order line into one of several distinct scenarios. This detailed breakdown reveals the complete picture of our fulfillment operations, from perfect on-time shipments to various types of delays.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="doughnut-chart-container">
+                        <canvas id="scenario-chart"></canvas>
+                    </div>
+                    <div class="flex flex-col space-y-4 text-base text-gray-800 font-normal">
+                        <div class="flex items-center"><span class="h-4 w-4 rounded-full mr-3" style="background-color: #f28e2b;"></span><div><strong class="text-black">Order Fulfilment Available (OFA)</strong></div></div>
+                        <div class="flex items-center"><span class="h-4 w-4 rounded-full mr-3" style="background-color: #a0cbe8;"></span><div><strong class="text-black">Total Backorders</strong></div></div>
+                        <hr class="my-4">
+                        <div class="flex items-center"><span class="h-4 w-4 rounded-full mr-3" style="background-color: #ffbe7d;"></span><div><strong class="text-black">On-Time from Main Warehouse:</strong> The ideal scenario.</div></div>
+                        <div class="flex items-center"><span class="h-4 w-4 rounded-full mr-3" style="background-color: #65B994;"></span><div><strong class="text-black">Available but Delayed:</strong> Stock was available, but delayed.</div></div>
+                        <div class="flex items-center"><span class="h-4 w-4 rounded-full mr-3" style="background-color: #194461;"></span><div><strong class="text-black">On-Time Direct Shipment:</strong> On-time from backup warehouse.</div></div>
+                        <div class="flex items-center"><span class="h-4 w-4 rounded-full mr-3" style="background-color: #697DB6;"></span><div><strong class="text-black">Backorder from Main Warehouse:</strong> Primary warehouse stock-out.</div></div>
+                        <div class="flex items-center"><span class="h-4 w-4 rounded-full mr-3" style="background-color: #FFB332;"></span><div><strong class="text-black">Backorder from Direct Shipment:</strong> Backup fulfillment was delayed.</div></div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="md:col-span-2 lg:col-span-3 grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <!-- Decision Flow Card -->
+                <div class="material-card">
+                     <h2 class="text-3xl font-bold text-black mb-6 text-center uppercase">Decision Flow</h2>
+                     <p class="text-center text-gray-700 mb-12 max-w-4xl mx-auto font-normal">This flow shows the logic for classifying every single order line.</p>
+                     <div class="df-card-container">
+                        <!-- Card 1 -->
+                        <div class="df-card">
+                            <div class="df-question">1. Was it a Direct Shipment?</div>
+                            <div class="df-answers">
+                                <div class="df-answer">
+                                    <span class="df-label">Yes:</span>
+                                    <span class="df-outcome df-link">Go to step 4</span>
+                                </div>
+                                <div class="df-answer">
+                                    <span class="df-label">No:</span>
+                                    <span class="df-outcome df-link">Go to step 2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="df-card">
+                            <div class="df-question">2. Was it shipped on-time?</div>
+                            <div class="df-answers">
+                                <div class="df-answer" style="background-color: #ffbe7d;">
+                                    <span class="df-label">Yes:</span>
+                                    <span class="df-outcome">Is Available in Customer default warehouse</span>
+                                </div>
+                                <div class="df-answer">
+                                    <span class="df-label">No:</span>
+                                    <span class="df-outcome df-link">Go to step 3</span>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Card 3 -->
+                        <div class="df-card">
+                            <div class="df-question">3. Was there enough stock?</div>
+                            <div class="df-answers">
+                                <div class="df-answer" style="background-color: #65B994;">
+                                    <span class="df-label">Yes:</span>
+                                    <span class="df-outcome">It was available but delayed</span>
+                                </div>
+                                <div class="df-answer" style="background-color: #697DB6; color: white;">
+                                    <span class="df-label">No:</span>
+                                    <span class="df-outcome">Is Backorder Default Customer Warehouse</span>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Card 4 -->
+                        <div class="df-card">
+                            <div class="df-question">4. Was it shipped on-time?</div>
+                            <div class="df-answers">
+                                <div class="df-answer" style="background-color: #194461; color: white;">
+                                    <span class="df-label">Yes:</span>
+                                    <span class="df-outcome">Is Direct Shipment Available</span>
+                                </div>
+                                <div class="df-answer" style="background-color: #FFB332;">
+                                    <span class="df-label">No:</span>
+                                    <span class="df-outcome">Is Direct Shipment Backorder</span>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                <!-- Metric Breakdown Table Card -->
+                <div class="material-card">
+                    <h2 class="text-3xl font-bold text-black mb-6 text-center uppercase">Metric Breakdown by Order Line</h2>
+                    <p class="text-center text-gray-700 mb-12 max-w-4xl mx-auto font-normal">This table shows the final classification for individual order lines based on the logic.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left whitespace-nowrap">
+                            <thead class="bg-gray-200 text-black uppercase">
+                                <tr>
+                                    <th class="px-2 py-3">Orderline</th>
+                                    <th class="px-2 py-3">Cust. WH</th>
+                                    <th class="px-2 py-3">Supply Loc.</th>
+                                    <th class="px-2 py-3">Requested</th>
+                                    <th class="px-2 py-3">Shipped</th>
+                                    <th class="px-2 py-3">Ordered</th>
+                                    <th class="px-2 py-3">In Stock</th>
+                                    <th class="px-2 py-3">Is Available Default</th>
+                                    <th class="px-2 py-3">Is Direct Shipment</th>
+                                    <th class="px-2 py-3">Is Direct Shipment BO</th>
+                                    <th class="px-2 py-3">Is Available But Delayed</th>
+                                    <th class="px-2 py-3">Is Backorder Default</th>
+                                    <th class="px-2 py-3">Is Backorder</th>
+                                    <th class="px-2 py-3 text-center text-green-600">OFA</th>
+                                </tr>
+                            </thead>
+                            <tbody class="font-normal text-center">
+                                <!-- Scenario 1: IsAvailableDefault -->
+                                <tr class="border-b"> <td class="px-2 py-3 text-left">1</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3">2025-03-10</td> <td class="px-2 py-3">2025-03-10</td> <td class="px-2 py-3">50</td> <td class="px-2 py-3">100</td> <td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="font-bold text-green-600">0</td> <td class="font-bold text-green-600">1</td> </tr>
+                                <!-- Scenario 2: IsAvailableButNotShipped -->
+                                <tr class="border-b bg-gray-50"> <td class="px-2 py-3 text-left">2</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3">2025-04-15</td> <td class="px-2 py-3">2025-04-17</td> <td class="px-2 py-3">20</td> <td class="px-2 py-3">25</td> <td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="font-bold text-green-600">0</td> <td class="font-bold text-green-600">1</td> </tr>
+                                <!-- Scenario 3: IsDirectShipment -->
+                                <tr class="border-b"> <td class="px-2 py-3 text-left">3</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Strullendorf</td> <td class="px-2 py-3">2025-05-20</td> <td class="px-2 py-3">2025-05-20</td> <td class="px-2 py-3">10</td> <td class="px-2 py-3">50</td> <td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td class="font-bold text-green-600">0</td> <td class="font-bold text-green-600">1</td> </tr>
+                                <!-- Scenario 4: IsDirectShipmentBO -->
+                                <tr class="border-b bg-gray-50"> <td class="px-2 py-3 text-left">4</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Strullendorf</td> <td class="px-2 py-3">2025-06-01</td> <td class="px-2 py-3">2025-06-03</td> <td class="px-2 py-3">30</td> <td class="px-2 py-3">40</td> <td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="font-bold text-red-600">1</td> <td class="font-bold text-red-600">0</td> </tr>
+                                <!-- Scenario 5: IsBackorderDefault -->
+                                <tr class="border-b"> <td class="px-2 py-3 text-left">5</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3">2025-07-10</td> <td class="px-2 py-3">2025-07-15</td> <td class="px-2 py-3">100</td> <td class="px-2 py-3">80</td> <td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td class="font-bold text-red-600">1</td> <td class="font-bold text-red-600">0</td> </tr>
+                            </tbody>
+                            <tfoot class="font-bold bg-gray-300">
+                                <tr>
+                                    <td class="px-2 py-3 text-left" colspan="7">Grand Total</td>
+                                    <td class="px-2 py-3 text-center">1</td>
+                                    <td class="px-2 py-3 text-center">1</td>
+                                    <td class="px-2 py-3 text-center">1</td>
+                                    <td class="px-2 py-3 text-center">1</td>
+                                    <td class="px-2 py-3 text-center">1</td>
+                                    <td class="px-2 py-3 text-center">2</td>
+                                    <td class="px-2 py-3 text-center">3</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                     <div class="text-center text-sm text-gray-600 mt-4 leading-relaxed">
+                        <strong>OFA % = (Total OFA / Total Orderlines) * 100% = (3 / 5) * 100% = 60%</strong> <br>
+                        On-Time from Main Warehouse % = (1 / 5) * 100% = 20% <br>
+                        Available but Delayed % = (1 / 5) * 100% = 20% <br>
+                        On-Time Direct Shipment % = (1 / 5) * 100% = 20% <br>
+                        <strong>Total Backorder % = (2 / 5) * 100% = 40%</strong> <br>
+                        Backorder from Main Warehouse % = (1 / 5) * 100% = 20% <br>
+                        Backorder from Direct Shipment % = (1 / 5) * 100% = 20%
+                     </div>
+                </div>
+            </section>
+            
+            <section class="material-card md:col-span-2 lg:col-span-3">
+                <h2 class="text-3xl font-bold text-black mb-4 text-center uppercase">What's Not Included in this Calculation?</h2>
+                <p class="text-center text-gray-700 mb-8 max-w-4xl mx-auto font-normal">To keep the OFA metric focused and accurate, certain types of orders and items are intentionally excluded from the calculation. This ensures we are measuring our core fulfillment performance against standard, external customer demand.</p>
+                <div class="max-w-3xl mx-auto space-y-3">
+                    <div class="p-3 bg-gray-100 rounded-lg">
+                        <h4 class="font-bold text-black">Internal Stock Movements</h4>
+                        <p class="font-normal text-gray-600 text-sm">We only measure external customer demand, so transfers between our own warehouses are not included.</p>
+                    </div>
+                    <div class="p-3 bg-gray-100 rounded-lg">
+                        <h4 class="font-bold text-black">Special Order & Non-Product Types</h4>
+                        <p class="font-normal text-gray-600 text-sm">Special cases like call-off orders, drop shipments, specials, and generic services (e.g., man-hours) are excluded to focus on standard, repeatable demand.</p>
+                    </div>
+                    <div class="p-3 bg-gray-100 rounded-lg">
+                        <h4 class="font-bold text-black">Returns & Excluded Items</h4>
+                        <p class="font-normal text-gray-600 text-sm">Customer returns and any products specifically flagged to be excluded from turnover calculations are removed from this metric.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="material-card md:col-span-2 lg:col-span-3">
+                <h2 class="text-3xl font-bold text-black mb-4 text-center uppercase">What OFA Tells Us About Our Business</h2>
+                <p class="text-center text-gray-700 mb-8 max-w-4xl mx-auto font-normal">OFA is a powerful diagnostic tool. It doesn't solve problems on its own, but it gives us precise insights into where our supply chain is succeeding and where we need to focus our improvement efforts.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    
+                    <div class="p-4 rounded-lg bg-white shadow-md">
+                        <div class="text-4xl mb-4">📍</div>
+                        <h4 class="font-bold text-black text-xl">Are we stocking in the right place?</h4>
+                        <p class="font-normal text-gray-700 mt-2 text-sm">By tracking Direct Shipments, OFA shows us how often we rely on backup warehouses, providing clear data on whether our inventory is correctly positioned to meet local demand.</p>
+                    </div>
+
+                     <div class="p-4 rounded-lg bg-white shadow-md">
+                        <div class="text-4xl mb-4">⏰</div>
+                        <h4 class="font-bold text-black text-xl">Are we shipping on time?</h4>
+                        <p class="font-normal text-gray-700 mt-2 text-sm">OFA directly measures our ability to ship on the requested date. This insight is key to enhancing the customer experience and building long-term trust.</p>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-white shadow-md">
+                        <div class="text-4xl mb-4">🔧</div>
+                        <h4 class="font-bold text-black text-xl">Is it a stock or process issue?</h4>
+                        <p class="font-normal text-gray-700 mt-2 text-sm">The 'Available but Delayed' metric is crucial. It separates true stock-outs from internal warehouse delays, so we can fix the right problem.</p>
+                    </div>
+
+                     <div class="p-4 rounded-lg bg-white shadow-md">
+                        <div class="text-4xl mb-4">🌐</div>
+                        <h4 class="font-bold text-black text-xl">How do our warehouses compare?</h4>
+                        <p class="font-normal text-gray-700 mt-2 text-sm">OFA provides a simple, standardized metric that can be applied across our entire network, allowing for fair and consistent performance comparisons.</p>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 p-8 rounded-lg" style="background-color: #000000; color: #FFFFFF;">
+            <p>This infographic provides a visual summary of the Order Fulfilment Availability (OFA) metric.</p>
+            <p>&copy; 2025 Kramp. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        Chart.defaults.font.family = "'Barlow Condensed', sans-serif";
+        Chart.defaults.font.weight = '400';
+        Chart.defaults.color = '#000000';
+
+        function wrapLabel(str, maxWidth) {
+            if (typeof str !== 'string' || str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            });
+            lines.push(currentLine.trim());
+            return lines;
+        }
+        
+        const palette = {
+            // Main Branding
+            krampRed: '#9B1915',
+            black: '#000000',
+            white: '#FFFFFF',
+
+            // New colors from user request
+            ofa: '#f28e2b',
+            totalBo: '#a0cbe8',
+            isAvailableDefault: '#ffbe7d',
+            isDirectShipmentAvailable: '#194461', // dark blue
+            availableButDelayed: '#65B994', // green
+            backorderDefaultWarehouse: '#697DB6', // purple
+            isDirectShipmentBackorder: '#FFB332' // yellow
+        };
+
+        const scenarioChartData = {
+            labels: [
+                'On-Time from Main Warehouse', 
+                'Available but Delayed', 
+                'On-Time Direct Shipment', 
+                'Backorder from Main Warehouse',
+                'Backorder from Direct Shipment'
+            ],
+            datasets: [
+                {
+                    label: 'Detailed Scenarios',
+                    data: [65, 12, 10, 8, 5],
+                    backgroundColor: [
+                        palette.isAvailableDefault, 
+                        palette.availableButDelayed, 
+                        palette.isDirectShipmentAvailable, 
+                        palette.backorderDefaultWarehouse,
+                        palette.isDirectShipmentBackorder
+                    ],
+                    borderColor: palette.white,
+                    borderWidth: 4,
+                    hoverOffset: 4
+                },
+                {
+                    label: 'Overall Status',
+                    data: [87, 13],
+                    backgroundColor: [palette.ofa, palette.totalBo],
+                    borderColor: palette.white,
+                    borderWidth: 4,
+                    hoverOffset: 4,
+                    weight: 0.8
+                }
+            ]
+        };
+
+        const innerRingLabels = ['Order Fulfilment Available', 'Total Backorders'];
+
+        new Chart(document.getElementById('scenario-chart'), {
+            type: 'doughnut',
+            data: scenarioChartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                       display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label;
+                                if (item.datasetIndex === 0) {
+                                    // Outer ring uses main labels
+                                    label = item.chart.data.labels[item.dataIndex];
+                                } else {
+                                    // Inner ring uses a separate label array
+                                    label = innerRingLabels[item.dataIndex];
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
