@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Fulfilment Availability (OFA) Infographic</title>
-    <meta http-equiv='cache-control' content='no-cache'> 
-    <meta http-equiv='expires' content='0'> 
-    <meta http-equiv='pragma' content='no-cache'>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,7 +104,7 @@
         
         <header class="text-center mb-12 p-8 md:p-12 rounded-lg" style="background-color: #9B1915;">
             <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight uppercase">Order Fulfilment Availability (OFA)</h1>
-            <p class="text-lg text-gray-200 mt-2 max-w-3xl mx-auto font-normal">A strategic look into our supply chain's health: Did we have the right stock, in the right place, at the right time?</p>
+            <p class="text-lg text-gray-200 mt-2 max-w-3xl mx-auto font-normal">A strategic look into our supply chain's performance: did we have the right stock, in the right place, at the right time?</p>
         </header>
 
         <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -116,7 +113,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div class="text-center md:text-left">
                         <h2 class="text-3xl font-bold text-black mb-4 uppercase">Performance Snapshot</h2>
-                        <p class="text-gray-700 mb-4 font-normal">The OFA score reveals our capability to meet customer demand based on our inventory position. It measures the percentage of order lines that could be fully satisfied, whether they were shipped perfectly or the stock was available but delayed by internal processes.</p>
+                        <p class="text-gray-700 mb-4 font-normal">The OFA score reveals our capability to meet customer demand based on our inventory position. It measures the percentage of order lines that could be fully satisfied, on the moment the customer placed the order.</p>
                         <div class="bg-[#9B1915] border-l-4 border-black p-4 rounded-r-lg text-white">
                             <p class="font-bold">This high-level view helps us immediately gauge the overall effectiveness of our inventory and fulfillment strategy.</p>
                         </div>
@@ -124,7 +121,7 @@
                     <div class="bg-gray-100 p-6 rounded-lg">
                         <h3 class="text-xl font-bold text-black uppercase">The Goal of OFA</h3>
                         <p class="mt-2 text-gray-800 font-normal">
-                            The goal is to provide a strategic view of our supply chain's health. It moves beyond simple on-time shipping metrics to answer a more fundamental question: <strong class="text-black">did we have the right stock, in the right place, at the right time?</strong>
+                            The goal is to provide a strategic view of our supply chain's performance. It moves beyond simple on-time shipping metrics to answer a more fundamental question: <strong class="text-black">did we have the right stock, in the right place, at the right time?</strong>
                         </p>
                         <p class="mt-4 text-gray-800 font-normal">
                             By measuring our capability to fulfill orders based on inventory position, OFA provides deep, actionable insights. This helps distinguish between true stock shortages and internal process delays, allowing for targeted improvements that enhance efficiency and boost customer satisfaction.
@@ -134,7 +131,7 @@
             </section>
             
              <section class="material-card md:col-span-2 lg:col-span-3">
-                <h2 class="text-3xl font-bold text-black mb-4 text-center uppercase">The Anatomy of an Order: Fulfillment Scenarios</h2>
+                <h2 class="text-3xl font-bold text-black mb-4 text-center uppercase">The build-up of OFA</h2>
                  <p class="text-center text-gray-700 mb-8 max-w-4xl mx-auto font-normal">To accurately measure performance, we classify every order line into one of several distinct scenarios. This detailed breakdown reveals the complete picture of our fulfillment operations, from perfect on-time shipments to various types of delays.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div class="doughnut-chart-container">
@@ -193,7 +190,7 @@
                             <div class="df-answers">
                                 <div class="df-answer" style="background-color: #65B994;">
                                     <span class="df-label">Yes:</span>
-                                    <span class="df-outcome">It was available but delayed</span>
+                                    <span class="df-outcome">It was available but delayed*</span>
                                 </div>
                                 <div class="df-answer" style="background-color: #697DB6; color: white;">
                                     <span class="df-label">No:</span>
@@ -215,6 +212,14 @@
                                 </div>
                             </div>
                         </div>
+                     </div>
+                     <div class="mt-4 text-sm text-gray-600">
+                        <p><strong class="font-bold">*It was available but delayed:</strong> This can happen for several reasons:</p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Order was placed after order stop time</li>
+                            <li>Bank holidays of the warehouse</li>
+                            <li>Delay in warehouse operations</li>
+                        </ul>
                      </div>
                 </div>
                 <!-- Metric Breakdown Table Card -->
@@ -386,6 +391,14 @@
             ],
             datasets: [
                 {
+                    label: 'Overall Status',
+                    data: [87, 13],
+                    backgroundColor: [palette.ofa, palette.totalBo],
+                    borderColor: palette.white,
+                    borderWidth: 4,
+                    hoverOffset: 4
+                },
+                {
                     label: 'Detailed Scenarios',
                     data: [65, 12, 10, 8, 5],
                     backgroundColor: [
@@ -397,21 +410,20 @@
                     ],
                     borderColor: palette.white,
                     borderWidth: 4,
-                    hoverOffset: 4
-                },
-                {
-                    label: 'Overall Status',
-                    data: [87, 13],
-                    backgroundColor: [palette.ofa, palette.totalBo],
-                    borderColor: palette.white,
-                    borderWidth: 4,
                     hoverOffset: 4,
                     weight: 0.8
                 }
             ]
         };
 
-        const innerRingLabels = ['Order Fulfilment Available', 'Total Backorders'];
+        const outerRingLabels = ['Order Fulfilment Available', 'Total Backorders'];
+        const innerRingLabels = [
+                'On-Time from Main Warehouse', 
+                'Available but Delayed', 
+                'On-Time Direct Shipment', 
+                'Backorder from Main Warehouse',
+                'Backorder from Direct Shipment'
+        ];
 
         new Chart(document.getElementById('scenario-chart'), {
             type: 'doughnut',
@@ -431,7 +443,7 @@
                                 let label;
                                 if (item.datasetIndex === 0) {
                                     // Outer ring uses main labels
-                                    label = item.chart.data.labels[item.dataIndex];
+                                    label = outerRingLabels[item.dataIndex];
                                 } else {
                                     // Inner ring uses a separate label array
                                     label = innerRingLabels[item.dataIndex];
