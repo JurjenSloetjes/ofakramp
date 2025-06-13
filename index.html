@@ -9,8 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Branding: Kramp Redesign -->
-    <!-- NEITHER Mermaid JS NOR SVG were used in this output. -->
     <style>
         body {
             font-family: 'Barlow Condensed', sans-serif;
@@ -96,6 +94,10 @@
             color: #194461;
             text-decoration: underline;
         }
+        .info-tooltip {
+            cursor: help;
+            text-decoration: underline dotted;
+        }
     </style>
 </head>
 <body class="text-black">
@@ -151,12 +153,10 @@
             </section>
             
             <section class="md:col-span-2 lg:col-span-3 grid grid-cols-1 xl:grid-cols-2 gap-8">
-                <!-- Decision Flow Card -->
                 <div class="material-card">
                      <h2 class="text-3xl font-bold text-black mb-6 text-center uppercase">Decision Flow</h2>
                      <p class="text-center text-gray-700 mb-12 max-w-4xl mx-auto font-normal">This flow shows the logic for classifying every single order line.</p>
                      <div class="df-card-container">
-                        <!-- Card 1 -->
                         <div class="df-card">
                             <div class="df-question">1. Was it a Direct Shipment?</div>
                             <div class="df-answers">
@@ -170,7 +170,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Card 2 -->
                         <div class="df-card">
                             <div class="df-question">2. Was it shipped on-time?</div>
                             <div class="df-answers">
@@ -184,9 +183,8 @@
                                 </div>
                             </div>
                         </div>
-                         <!-- Card 3 -->
-                        <div class="df-card">
-                            <div class="df-question">3. Was there enough stock?</div>
+                         <div class="df-card">
+                            <div class="df-question">3. Was there enough stock?**</div>
                             <div class="df-answers">
                                 <div class="df-answer" style="background-color: #65B994;">
                                     <span class="df-label">Yes:</span>
@@ -198,8 +196,7 @@
                                 </div>
                             </div>
                         </div>
-                         <!-- Card 4 -->
-                        <div class="df-card">
+                         <div class="df-card">
                             <div class="df-question">4. Was it shipped on-time?</div>
                             <div class="df-answers">
                                 <div class="df-answer" style="background-color: #194461; color: white;">
@@ -213,16 +210,20 @@
                             </div>
                         </div>
                      </div>
-                     <div class="mt-4 text-sm text-gray-600">
-                        <p><strong class="font-bold">*It was available but delayed:</strong> This can happen for several reasons:</p>
-                        <ul class="list-disc list-inside ml-4">
-                            <li>Order was placed after order stop time</li>
-                            <li>Bank holidays of the warehouse</li>
-                            <li>Delay in warehouse operations</li>
-                        </ul>
+                     <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-x-6 text-sm text-gray-600">
+                        <div>
+                            <p><strong class="font-bold">*It was available but delayed:</strong> This can happen for several reasons:</p>
+                            <ul class="list-disc list-inside ml-4">
+                                <li>Order was placed after order stop time</li>
+                                <li>Bank holidays of the warehouse</li>
+                                <li>Delay in warehouse operations</li>
+                            </ul>
+                        </div>
+                        <div>
+                             <p><strong class="font-bold">**Was there enough stock?:</strong> This checks the 'net stock on hand' at the end of the day. It's calculated as: (Stock at start) - (shipped orders) - (backorders) to see if there was enough left to fulfill the order.</p>
+                        </div>
                      </div>
                 </div>
-                <!-- Metric Breakdown Table Card -->
                 <div class="material-card">
                     <h2 class="text-3xl font-bold text-black mb-6 text-center uppercase">Metric Breakdown by Order Line</h2>
                     <p class="text-center text-gray-700 mb-12 max-w-4xl mx-auto font-normal">This table shows the final classification for individual order lines based on the logic.</p>
@@ -236,27 +237,22 @@
                                     <th class="px-2 py-3">Requested</th>
                                     <th class="px-2 py-3">Shipped</th>
                                     <th class="px-2 py-3">Ordered</th>
-                                    <th class="px-2 py-3">In Stock</th>
+                                    <th class="px-2 py-3 info-tooltip" title="Net stock on hand end of day = Stock on hand start - backorders - shipped quantities on that day">Net Stock</th>
                                     <th class="px-2 py-3">Is Available Default</th>
                                     <th class="px-2 py-3">Is Direct Shipment</th>
                                     <th class="px-2 py-3">Is Direct Shipment BO</th>
                                     <th class="px-2 py-3">Is Available But Delayed</th>
                                     <th class="px-2 py-3">Is Backorder Default</th>
                                     <th class="px-2 py-3">Is Backorder</th>
-                                    <th class="px-2 py-3 text-center text-green-600">OFA</th>
+                                    <th class="px-2 py-3 text-center">OFA</th>
                                 </tr>
                             </thead>
                             <tbody class="font-normal text-center">
-                                <!-- Scenario 1: IsAvailableDefault -->
-                                <tr class="border-b"> <td class="px-2 py-3 text-left">1</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3">2025-03-10</td> <td class="px-2 py-3">2025-03-10</td> <td class="px-2 py-3">50</td> <td class="px-2 py-3">100</td> <td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="font-bold text-green-600">0</td> <td class="font-bold text-green-600">1</td> </tr>
-                                <!-- Scenario 2: IsAvailableButNotShipped -->
-                                <tr class="border-b bg-gray-50"> <td class="px-2 py-3 text-left">2</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3">2025-04-15</td> <td class="px-2 py-3">2025-04-17</td> <td class="px-2 py-3">20</td> <td class="px-2 py-3">25</td> <td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="font-bold text-green-600">0</td> <td class="font-bold text-green-600">1</td> </tr>
-                                <!-- Scenario 3: IsDirectShipment -->
-                                <tr class="border-b"> <td class="px-2 py-3 text-left">3</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Strullendorf</td> <td class="px-2 py-3">2025-05-20</td> <td class="px-2 py-3">2025-05-20</td> <td class="px-2 py-3">10</td> <td class="px-2 py-3">50</td> <td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td class="font-bold text-green-600">0</td> <td class="font-bold text-green-600">1</td> </tr>
-                                <!-- Scenario 4: IsDirectShipmentBO -->
-                                <tr class="border-b bg-gray-50"> <td class="px-2 py-3 text-left">4</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Strullendorf</td> <td class="px-2 py-3">2025-06-01</td> <td class="px-2 py-3">2025-06-03</td> <td class="px-2 py-3">30</td> <td class="px-2 py-3">40</td> <td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="font-bold text-red-600">1</td> <td class="font-bold text-red-600">0</td> </tr>
-                                <!-- Scenario 5: IsBackorderDefault -->
-                                <tr class="border-b"> <td class="px-2 py-3 text-left">5</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3">2025-07-10</td> <td class="px-2 py-3">2025-07-15</td> <td class="px-2 py-3">100</td> <td class="px-2 py-3">80</td> <td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td class="font-bold text-red-600">1</td> <td class="font-bold text-red-600">0</td> </tr>
+                                <tr class="border-b"> <td class="px-2 py-3 text-left">1</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3">2025-03-10</td> <td class="px-2 py-3">2025-03-10</td> <td class="px-2 py-3">50</td> <td class="px-2 py-3">100</td> <td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td><td class="font-bold"><span class="text-green-600">✅</span> No</td> <td class="font-bold"><span class="text-green-600">✅</span> Yes</td> </tr>
+                                <tr class="border-b bg-gray-50"> <td class="px-2 py-3 text-left">2</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3">2025-04-15</td> <td class="px-2 py-3">2025-04-17</td> <td class="px-2 py-3">20</td> <td class="px-2 py-3">25</td> <td>No</td><td>No</td><td>No</td><td>Yes</td><td>No</td><td class="font-bold"><span class="text-green-600">✅</span> No</td> <td class="font-bold"><span class="text-green-600">✅</span> Yes</td> </tr>
+                                <tr class="border-b"> <td class="px-2 py-3 text-left">3</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Strullendorf</td> <td class="px-2 py-3">2025-05-20</td> <td class="px-2 py-3">2025-05-20</td> <td class="px-2 py-3">10</td> <td class="px-2 py-3">50</td> <td>No</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td class="font-bold"><span class="text-green-600">✅</span> No</td> <td class="font-bold"><span class="text-green-600">✅</span> Yes</td> </tr>
+                                <tr class="border-b bg-gray-50"> <td class="px-2 py-3 text-left">4</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Strullendorf</td> <td class="px-2 py-3">2025-06-01</td> <td class="px-2 py-3">2025-06-03</td> <td class="px-2 py-3">30</td> <td class="px-2 py-3">40</td> <td>No</td><td>No</td><td>Yes</td><td>No</td><td>No</td><td class="font-bold"><span class="text-red-600">❌</span> Yes</td> <td class="font-bold"><span class="text-red-600">❌</span> No</td> </tr>
+                                <tr class="border-b"> <td class="px-2 py-3 text-left">5</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3 text-left">Varsseveld</td> <td class="px-2 py-3">2025-07-10</td> <td class="px-2 py-3">2025-07-15</td> <td class="px-2 py-3">100</td> <td class="px-2 py-3">80</td> <td>No</td><td>No</td><td>No</td><td>No</td><td>Yes</td><td class="font-bold"><span class="text-red-600">❌</span> Yes</td> <td class="font-bold"><span class="text-red-600">❌</span> No</td> </tr>
                             </tbody>
                             <tfoot class="font-bold bg-gray-300">
                                 <tr>
